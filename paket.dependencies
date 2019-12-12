@@ -1,0 +1,7 @@
+group Engine
+    source https://www.nuget.org/api/v2
+    nuget FSharp.Core
+    nuget TaskBuilder.fs
+    nuget Microsoft.Extensions.Logging
+    nuget Microsoft.Orleans.OrleansCodeGenerator
+    nuget Microsoft.Orleans.Client
