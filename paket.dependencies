@@ -5,3 +5,4 @@ group Engine
     nuget Microsoft.Extensions.Logging
     nuget Microsoft.Orleans.OrleansCodeGenerator
     nuget Microsoft.Orleans.Client
+    nuget Thoth.Json.Net

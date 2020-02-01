@@ -1,0 +1,4 @@
+group Engine
+    FSharp.Core
+    TaskBuilder.fs
+    Thoth.Json.Net
