@@ -5,6 +5,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Currency.fs" />
+    <Compile Include="Instrument.fs" />
     <Compile Include="Account.fs" />
     <Compile Include="Order.fs" />
     <Compile Include="Library.fs" />

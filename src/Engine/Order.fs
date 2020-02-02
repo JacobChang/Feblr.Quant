@@ -17,7 +17,7 @@ type Strategy =
 
 type Order =
     { purpose: Purpose
-      quantity: int64
+      units: int64
       strategies: Strategy list
       timestamp: DateTime }
 

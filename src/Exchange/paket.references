@@ -1,0 +1,6 @@
+group Engine
+    FSharp.Core
+    TaskBuilder.fs
+    Microsoft.Extensions.Logging
+    Microsoft.Orleans.OrleansCodeGenerator
+    Microsoft.Orleans.Client

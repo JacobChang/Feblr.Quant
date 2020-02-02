@@ -51,10 +51,25 @@ type OANDAAccount =
       // pl: string
       balance: string }
 
+type OANDAInstrument =
+  { displayName: string
+    displayPrecision: unit
+    marginRate: string
+    maximumOrderUnits: string
+    maximumPositionSize: string
+    maximumTrailingStopDistance: string
+    minimumTradeSize: string
+    minimumTrailingStopDistance: string
+    name: string
+    pipLocation: int
+    tradeUnitsPrecision: int
+    ``type``: string }
+
+let client = new HttpClient()
+client.DefaultRequestHeaders.Accept.Add(MediaTypeWithQualityHeaderValue("application/json"))
+
 let queryAccount (accountType: AccountType) (accountId: string) (accessToken: string) =
     task {
-        let client = new HttpClient()
-
         let domain =
             match accountType with
             | Practice -> restApiDomainPractice
@@ -63,7 +78,6 @@ let queryAccount (accountType: AccountType) (accountId: string) (accessToken: st
         let uri = sprintf "%s/v3/accounts/%s" domain accountId
         let request = new HttpRequestMessage(HttpMethod.Get, uri)
         request.Headers.Authorization <- AuthenticationHeaderValue("Bearer", accessToken)
-        request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue("application/json"))
         let! response = client.SendAsync(request)
         let! body = response.Content.ReadAsStringAsync()
         let result =
@@ -75,6 +89,24 @@ let queryAccount (accountType: AccountType) (accountId: string) (accessToken: st
               let marginRate = oandaAccount.marginRate
               Account<string>.create oandaAccount.id currency totalBalance marginAvailable marginRate
             )
+
+        return result
+    }
+
+let queryAccountInstruments (accountType: AccountType) (accountId: string) (accessToken: string) =
+    task {
+        let domain =
+            match accountType with
+            | Practice -> restApiDomainPractice
+            | Trade -> restApiDomainTrade
+
+        let uri = sprintf "%s/v3/accounts/%s/instruments" domain accountId
+        let request = new HttpRequestMessage(HttpMethod.Get, uri)
+        request.Headers.Authorization <- AuthenticationHeaderValue("Bearer", accessToken)
+        let! response = client.SendAsync(request)
+        let! body = response.Content.ReadAsStringAsync()
+        let result =
+            Decode.Auto.fromString<{| instruments: OANDAInstrument seq |}> body
 
         return result
     }

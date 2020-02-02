@@ -4,7 +4,7 @@ open System.Net.Http
 open FSharp.Control.Tasks.V2
 
 type Account<'a> =
-  { accountId: 'a
+  { id: 'a
     totalBalance: double
     unrealisedPNL: double
     realisedPNL: double
@@ -16,8 +16,8 @@ type Account<'a> =
     currency: string
     amountAvailableRatio: double }
 
-  static member create accountId currency totalBalance marginAvailable marginRate =
-    { accountId = accountId
+  static member create id currency totalBalance marginAvailable marginRate =
+    { id = id
       currency = currency
       totalBalance = totalBalance
       marginRate = marginRate
